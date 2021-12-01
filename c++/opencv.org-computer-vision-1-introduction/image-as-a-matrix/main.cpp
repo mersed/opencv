@@ -83,6 +83,21 @@ int main( int argc, char** argv ) {
     cv::namedWindow( "Display window", cv::WINDOW_NORMAL );
     cv::imshow( "Display window", testImage );
 
+    // --- Loading color image ---
+    cv::Mat colorImage = cv::imread("../musk.jpg", cv::IMREAD_UNCHANGED); // IMREAD_COLOR is default
+
+    if(!colorImage.data ) {
+        std::cout << "Could not open or find the color image" << std::endl ;
+        return -1;
+    }
+
+    // If we take a look we will see that we have 3 dimensions here ... Number or rows and columns + number of channels
+    std::cout << std::endl << std::endl;
+    std::cout << "Color image: " << std::endl;
+    std::cout << "image size = " << colorImage.size() << std::endl;
+    // It will have 3 channels here because its RGB image
+    std::cout << "image channels = " << colorImage.channels() << std::endl;
+
     cv::waitKey(0);
     cv::destroyAllWindows();
     return 0;
