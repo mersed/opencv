@@ -47,6 +47,10 @@ std::string type2str(int type) {
 int main( int argc, char** argv ) {
     // It will be loaded as matrix
     cv::Mat testImage = cv::imread("../number_zero.jpg", cv::IMREAD_GRAYSCALE);
+    if(!testImage.data ) {
+        std::cout << "Could not open or find the image" << std::endl ;
+        return -1;
+    }
 
     // Showing the matrix of the image
     std::cout << testImage << std::endl;
@@ -72,19 +76,13 @@ int main( int argc, char** argv ) {
     testImage(cv::Range(0,2), cv::Range(0,4)).setTo(111);
     std::cout << "Modified Matrix\n" << testImage << std::endl;
 
-    /*
-    cv::Mat image;
-    image = cv::imread("../sample.jpeg" , cv::IMREAD_UNCHANGED);
+    // --- Displaying an image ---
 
-    if(! image.data ) {
-        std::cout <<  "Could not open or find the image" << std::endl ;
-        return -1;
-    }
 
-    cv::namedWindow( "Display window", cv::WINDOW_AUTOSIZE );
-    cv::imshow( "Display window", image );
+    cv::namedWindow( "Display window", cv::WINDOW_NORMAL );
+    cv::imshow( "Display window", testImage );
 
     cv::waitKey(0);
+    cv::destroyAllWindows();
     return 0;
-    */
 }
