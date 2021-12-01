@@ -85,7 +85,6 @@ int main( int argc, char** argv ) {
 
     // --- Loading color image ---
     cv::Mat colorImage = cv::imread("../musk.jpg", cv::IMREAD_UNCHANGED); // IMREAD_COLOR is default
-
     if(!colorImage.data ) {
         std::cout << "Could not open or find the color image" << std::endl ;
         return -1;
@@ -114,6 +113,58 @@ int main( int argc, char** argv ) {
     cv::imshow( "Green channel", imgChannels[1] );
     cv::namedWindow( "Red channel", cv::WINDOW_NORMAL );
     cv::imshow( "Red channel", imgChannels[2] );
+
+    // --- Manipulating color pixels
+    // Lets load image as a color image. Even if original image is grayscale, when we pass 1 as a flag (which is equal to
+    // IMREAD_COLOR, it replicates grayscale channel of the original image and produces 3 channel color image where
+    // all 3 channels under those conditions are equal.
+    cv::Mat grayscaleToColorImage = cv::imread("../number_zero.jpg", cv::IMREAD_COLOR); // IMREAD_COLOR is default
+    if(!grayscaleToColorImage.data ) {
+        std::cout << "Could not open or find the grayscaleToColorImage image" << std::endl ;
+        return -1;
+    }
+
+    // If we print image it will look grayscale because all 3 channels are the same
+    cv::namedWindow( "grayscaleToColorImage image", cv::WINDOW_NORMAL );
+    cv::imshow( "grayscaleToColorImage image", grayscaleToColorImage );
+
+    std::cout << std::endl << std::endl;
+    std::cout << "Grayscale to color image and channel representation " << std::endl;
+    // Get pixel intensity at 0,0 -- it will be [1, 0, 3]
+    std::cout << grayscaleToColorImage.at<cv::Vec3b>(0,0) << std::endl;
+
+    // Lets modify pixels at specific locations
+    grayscaleToColorImage.at<cv::Vec3b>(0, 0) = cv::Vec3b(0, 255, 255);
+    cv::namedWindow( "grayscaleToColorImage image - yellow pixel", cv::WINDOW_NORMAL );
+    cv::imshow( "grayscaleToColorImage image - yellow pixel", grayscaleToColorImage );
+
+    grayscaleToColorImage.at<cv::Vec3b>(1, 1) = cv::Vec3b(255, 255, 0);
+    cv::namedWindow( "grayscaleToColorImage image - cyan pixel", cv::WINDOW_NORMAL );
+    cv::imshow( "grayscaleToColorImage image - cyan pixel", grayscaleToColorImage );
+
+    grayscaleToColorImage.at<cv::Vec3b>(2, 2) = cv::Vec3b(255, 0, 255);
+    cv::namedWindow( "grayscaleToColorImage image - magenta pixel", cv::WINDOW_NORMAL );
+    cv::imshow( "grayscaleToColorImage image - magenta pixel", grayscaleToColorImage );
+
+    // Modify region of interest (roi)
+    cv::Size size = grayscaleToColorImage.size();
+    grayscaleToColorImage(
+        cv::Range(0, 3),
+        cv::Range(size.width-2, size.width)
+    ).setTo(cv::Scalar(255, 0, 0));
+    grayscaleToColorImage(
+            cv::Range(3, 6),
+            cv::Range(size.width-2, size.width)
+    ).setTo(cv::Scalar(0, 255, 0));
+    grayscaleToColorImage(
+            cv::Range(6, 9),
+            cv::Range(size.width-2, size.width)
+    ).setTo(cv::Scalar(0, 0, 255));
+
+    cv::namedWindow( "grayscaleToColorImage image - range of pixels", cv::WINDOW_NORMAL );
+    cv::imshow( "grayscaleToColorImage image - range of pixels", grayscaleToColorImage );
+
+
 
     cv::waitKey(0);
     cv::destroyAllWindows();
