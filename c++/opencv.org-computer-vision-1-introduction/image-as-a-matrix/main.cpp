@@ -55,13 +55,23 @@ int main( int argc, char** argv ) {
     std::cout << "Image dimensions = " << testImage.size() << std::endl;
 
     // --- Manipulating pixels ---
-
     // Getting a pixel at specific location (row, column)
     std::cout << (int)testImage.at<uchar>(0, 0) << std::endl;
 
     // Changing pixel at specific location
     testImage.at<uchar>(0, 0) = 200;
     std::cout << testImage << std::endl;
+
+    // --- Manipulating group of pixels ---
+    // Define our roi (region of interest)
+    cv::Mat testRoi = testImage(cv::Range(0,2), cv::Range(0,4));
+    std::cout << "Original Matrix\n" << testImage << std::endl << std::endl;
+    std::cout << "Selected Region\n" << testRoi << std::endl;
+
+    // Modify region
+    testImage(cv::Range(0,2), cv::Range(0,4)).setTo(111);
+    std::cout << "Modified Matrix\n" << testImage << std::endl;
+
     /*
     cv::Mat image;
     image = cv::imread("../sample.jpeg" , cv::IMREAD_UNCHANGED);
