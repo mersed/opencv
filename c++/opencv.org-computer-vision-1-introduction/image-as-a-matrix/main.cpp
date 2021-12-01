@@ -164,7 +164,7 @@ int main( int argc, char** argv ) {
     cv::namedWindow( "grayscaleToColorImage image - range of pixels", cv::WINDOW_NORMAL );
     cv::imshow( "grayscaleToColorImage image - range of pixels", grayscaleToColorImage );
 
-
+    // --- Images with Alpha Channel
 
     cv::waitKey(0);
     cv::destroyAllWindows();
