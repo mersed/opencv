@@ -76,9 +76,10 @@ int main( int argc, char** argv ) {
     testImage(cv::Range(0,2), cv::Range(0,4)).setTo(111);
     std::cout << "Modified Matrix\n" << testImage << std::endl;
 
+    // --- Saving an an image ---
+    cv::imwrite("../number_zero_changed.jpg", testImage);
+
     // --- Displaying an image ---
-
-
     cv::namedWindow( "Display window", cv::WINDOW_NORMAL );
     cv::imshow( "Display window", testImage );
 
