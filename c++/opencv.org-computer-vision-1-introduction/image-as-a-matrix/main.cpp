@@ -53,6 +53,15 @@ int main( int argc, char** argv ) {
 
     std::cout << "Data type = " << type2str(testImage.type()) << std::endl;
     std::cout << "Image dimensions = " << testImage.size() << std::endl;
+
+    // --- Manipulating pixels ---
+
+    // Getting a pixel at specific location (row, column)
+    std::cout << (int)testImage.at<uchar>(0, 0) << std::endl;
+
+    // Changing pixel at specific location
+    testImage.at<uchar>(0, 0) = 200;
+    std::cout << testImage << std::endl;
     /*
     cv::Mat image;
     image = cv::imread("../sample.jpeg" , cv::IMREAD_UNCHANGED);
