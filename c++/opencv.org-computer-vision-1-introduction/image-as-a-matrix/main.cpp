@@ -96,7 +96,24 @@ int main( int argc, char** argv ) {
     std::cout << "Color image: " << std::endl;
     std::cout << "image size = " << colorImage.size() << std::endl;
     // It will have 3 channels here because its RGB image
+    // Each channel itself is a grayscale image.
+    // The combination of intensity values of the three channels gives the color that is displayed on the screen.
+    // In openCV, the order of channels, R, G and B is reverse. i.e. In the image matrix, the Blue channel is indexed first
+    // followed by the Green Channel and finally the Red Channel
     std::cout << "image channels = " << colorImage.channels() << std::endl;
+
+
+    // --- Splitting and Merging channels ---
+    cv::Mat imgChannels[3];
+    cv::split(colorImage, imgChannels);
+    cv::namedWindow( "Original color image", cv::WINDOW_NORMAL );
+    cv::imshow( "Original color image", colorImage );
+    cv::namedWindow( "Blue channel", cv::WINDOW_NORMAL );
+    cv::imshow( "Blue channel", imgChannels[0] );
+    cv::namedWindow( "Green channel", cv::WINDOW_NORMAL );
+    cv::imshow( "Green channel", imgChannels[1] );
+    cv::namedWindow( "Red channel", cv::WINDOW_NORMAL );
+    cv::imshow( "Red channel", imgChannels[2] );
 
     cv::waitKey(0);
     cv::destroyAllWindows();
