@@ -8,6 +8,7 @@
  * prevent overflow while working with the images.
  */
 #include <opencv2/highgui.hpp>
+#include <iostream>
 
 int main() {
     cv::Mat image = cv::imread("../boy.jpg");
@@ -20,6 +21,7 @@ int main() {
 
     // Converting image from unsigned char to float (32 bit)
     image.convertTo(image, CV_32FC3, scalingFactor, shift);
+    std::cout << image << std::endl;
 
     // We can convert it back using reciprocal of the scaling factor to move values back to range 0 to 255.
     image.convertTo(image, CV_8UC3, 1.0/scalingFactor, shift);
