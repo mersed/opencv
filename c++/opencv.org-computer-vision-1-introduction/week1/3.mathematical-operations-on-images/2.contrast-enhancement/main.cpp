@@ -10,7 +10,6 @@
  * the code snippet to do the same.
  */
 
-#include <iostream>
 #include <opencv2/highgui.hpp>
 
 int main() {
